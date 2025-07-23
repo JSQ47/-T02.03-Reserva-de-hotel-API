@@ -5,3 +5,7 @@ pydantic[email]
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart
+pytest
+pytest-cov
+bcrypt
+httpx
