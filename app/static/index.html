@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hotel Aurora — Reservas Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel ="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="inner">
+      <div class="brand">
+        <div class="crest"></div>
+        <h1>Hotel Aurora</h1>
+      </div>
+      <div class="navlinks">
+        <a href="#rooms">Habitaciones</a>
+        <a href="#booking">Reservar</a>
+        <a href="#" id="miCuentaBtn" class="cta">Mi cuenta</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Bienvenida">
+    <div class="inner">
+      <div class="hero-card">
+    
+        <div class="hero-img"   role="img" aria-label="Lobby de hotel elegante"></div>
+        
+        <div class="hero-overlay">
+          <h2 class="headline">Descansa con estilo, reserva en minutos</h2>
+          <p class="sub">Atención personalizada, habitaciones confortables y una experiencia memorable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS PREVIEW -->
+  <section id="rooms" class="wrap">
+    <h3 class="section-title">Habitaciones destacadas</h3>
+    <p class="muted">Explora nuestras opciones antes de reservar.</p>
+    <div class="grid grid-3">
+      <article class="room">
+        <div class="img" aria-hidden="true"></div>
+        <div class="info">
+          <h3>Estándar</h3>
+          <p class="muted">Cama queen, Wi‑Fi, desayuno incluido.</p>
+          <div class="center"><span class="price">$55/noche</span><a href="#booking" class="btn">Reservar</a></div>
+        </div>
+      </article>
+      <article class="room">
+        <div class="img" aria-hidden="true"></div>
+        <div class="info">
+          <h3>Suite</h3>
+          <p class="muted">Vista a la ciudad, bañera, TV 55”.</p>
+          <div class="center"><span class="price">$85/noche</span><a href="#booking" class="btn">Reservar</a></div>
+        </div>
+      </article>
+      <article class="room">
+        <div class="img" aria-hidden="true"></div>
+        <div class="info">
+          <h3>Familiar</h3>
+          <p class="muted">Dos camas dobles, kitchenette.</p>
+          <div class="center"><span class="price">$70/noche</span><a href="#booking" class="btn">Reservar</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking" class="wrap booking">
+    <div class="card">
+      <div class="center">
+        <div>
+          <h3 class="section-title">Reservar ahora</h3>
+          <p class="muted">Completa el formulario. Si tienes cuenta, inicia sesión para confirmar.</p>
+        </div>
+        <div>Token: <span id="tokenBadge" class="badge">—</span></div>
+      </div>
+
+      <form id="bookingForm" class="mt12" autocomplete="off">
+        <label>Habitación
+          <select id="bkHab" required>
+            <option value="">Selecciona</option>
+            <option>101</option><option>201</option><option>301</option>
+          </select>
+        </label>
+        <label>Fecha de llegada<input id="bkIni" type="date" required/></label>
+        <label>Fecha de salida<input id="bkFin" type="date" required/></label>
+        <div class="flex">
+          <button class="btn" type="submit">Confirmar reserva</button>
+          <button class="btn btn-outline" type="button" id="verReservasBtn">Ver mis reservas</button>
+        </div>
+      </form>
+
+      <div id="bkMsg" class="muted mt12"></div>
+      <pre id="bkOutput" class="note mt12 hidden">—</pre>
+
+      <details class="mt12">
+        <summary class="muted">Opciones avanzadas</summary>
+        <div class="flex mt12">
+          <label>URL backend <input id="apiBase" value="http://127.0.0.1:8000" /></label>
+          <button class="btn btn-outline" id="clearTokenBtn" type="button">Cerrar sesión</button>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2025 Hotel Aurora · Atención 24/7 · +593 99 999 9999 · contacto@hotel-aurora.com
+  </footer>
+
+  <!-- DIALOG CUENTA -->
+  <dialog id="dlgCuenta">
+    <div class="dialog-head">
+      <strong>Mi cuenta</strong>
+      <form method="dialog"><button class="btn btn-outline">Cerrar</button></form>
+    </div>
+    <div class="tab-row">
+      <button class="tab active" id="tabLogin">Iniciar sesión</button>
+      <button class="tab" id="tabRegistro">Crear cuenta</button>
+    </div>
+    <div class="dialog-body">
+      <div id="viewLogin">
+        <form id="loginForm">
+          <label>Email<input id="logEmail" type="email" placeholder="tucorreo@mail.com" required/></label>
+          <label>Contraseña<input id="logPass" type="password" placeholder="••••••••" required/></label>
+          <div class="flex mt12">
+            <button type="submit" class="btn">Entrar</button>
+            <span id="logMsg" class="muted"></span>
+          </div>
+        </form>
+      </div>
+      <div id="viewRegistro" class="hidden">
+        <form id="registerForm">
+          <label>Nombre<input id="regNombre" placeholder="Juan Pérez" required/></label>
+          <label>Email<input id="regEmail" type="email" placeholder="juan@mail.com" required/></label>
+          <label>Contraseña<input id="regPass" type="password" placeholder="••••••••" required/></label>
+          <div class="flex mt12">
+            <button type="submit" class="btn">Registrarme</button>
+            <span id="regMsg" class="muted"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+<script>
+  // Utilidades
+  const $ = (id) => document.getElementById(id);
+  const dlg = $('dlgCuenta');
+  const tabLogin = $('tabLogin');
+  const tabRegistro = $('tabRegistro');
+  const viewLogin = $('viewLogin');
+  const viewRegistro = $('viewRegistro');
+  const tokenBadge = $('tokenBadge');
+  const bkOutput = $('bkOutput');
+  const bkMsg = $('bkMsg');
+
+  // Estado
+  const state = {
+    get api() { return $('apiBase').value.replace(/\/$/,''); },
+    get token() { return localStorage.getItem('token') || ''; },
+    set token(v){ if(v){localStorage.setItem('token', v)} else {localStorage.removeItem('token')} updateTokenBadge(); }
+  };
+
+  function updateTokenBadge(){
+    tokenBadge.textContent = state.token ? state.token.slice(0,16)+'…' : '—';
+  }
+  updateTokenBadge();
+
+  // Tabs dialog
+  function activate(tab){
+    if(tab==='login'){
+      tabLogin.classList.add('active'); tabRegistro.classList.remove('active');
+      viewLogin.classList.remove('hidden'); viewRegistro.classList.add('hidden');
+    }else{
+      tabRegistro.classList.add('active'); tabLogin.classList.remove('active');
+      viewRegistro.classList.remove('hidden'); viewLogin.classList.add('hidden');
+    }
+  }
+  tabLogin.onclick = ()=>activate('login');
+  tabRegistro.onclick = ()=>activate('registro');
+
+  // Abrir/Cerrar dialog
+  $('miCuentaBtn').onclick = (e)=>{ e.preventDefault(); dlg.showModal(); };
+
+  // Limpiar token (logout)
+  $('clearTokenBtn').onclick = () => { state.token = ''; showNote('Sesión cerrada.'); };
+
+  // HTTP helpers
+  async function httpJSON(path, {method='GET', headers={}, body}={}){
+    const res = await fetch(state.api + path, {
+      method,
+      headers: {'Content-Type':'application/json', ...headers},
+      body: body ? JSON.stringify(body) : undefined
+    });
+    const ctype = res.headers.get('content-type') || '';
+    const data = ctype.includes('application/json') ? await res.json() : await res.text();
+    if(!res.ok) throw new Error(typeof data==='string' ? data : (data.detail || res.statusText));
+    return data;
+  }
+  async function httpForm(path, form){
+    const headers = {'Content-Type':'application/x-www-form-urlencoded'};
+    const body = new URLSearchParams(form);
+    const res = await fetch(state.api + path, {method:'POST', headers, body});
+    const data = await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(data.detail || res.statusText);
+    return data;
+  }
+
+  // Mensajería
+  function showJson(el, data){ el.classList.remove('hidden'); el.textContent = (typeof data==='string') ? data : JSON.stringify(data, null, 2); }
+  function showError(msg){ bkMsg.innerHTML = '<span class="err">'+msg+'</span>'; }
+  function showOk(msg){ bkMsg.innerHTML = '<span class="ok">'+msg+'</span>'; }
+  function showNote(msg){ bkMsg.innerHTML = msg; }
+
+  // Registro
+  $('registerForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    $('regMsg').textContent = '';
+    try{
+      const payload = { nombre:$('regNombre').value, email:$('regEmail').value, password:$('regPass').value };
+      const data = await httpJSON('/api/auth/register', {method:'POST', body:payload});
+      $('regMsg').innerHTML = '<span class="ok">Registrado: ID '+data.id+'</span>';
+      activate('login');
+    }catch(err){
+      $('regMsg').innerHTML = '<span class="err">'+err.message+'</span>';
+    }
+  });
+
+  // Login
+  $('loginForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    $('logMsg').textContent = '';
+    try{
+      const data = await httpForm('/api/auth/login', {username:$('logEmail').value, password:$('logPass').value});
+      state.token = data.access_token || '';
+      $('logMsg').innerHTML = '<span class="ok">Sesión iniciada</span>';
+      dlg.close();
+      showOk('Listo. Ahora puedes confirmar tu reserva.');
+    }catch(err){
+      $('logMsg').innerHTML = '<span class="err">'+err.message+'</span>';
+    }
+  });
+
+  // Crear reserva
+  $('bookingForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    bkMsg.textContent = ''; bkOutput.classList.add('hidden');
+    try{
+      if(!state.token){ dlg.showModal(); showNote('Inicia sesión para confirmar la reserva.'); return; }
+      const body = { habitacion:$('bkHab').value, fecha_inicio:$('bkIni').value, fecha_fin:$('bkFin').value };
+      const data = await httpJSON('/api/reservas', { method:'POST', headers:{ Authorization: 'Bearer '+state.token }, body });
+      showOk('¡Reserva creada con éxito!');
+      showJson(bkOutput, data);
+    }catch(err){
+      const txt = String(err.message).includes('Not Found')
+        ? 'El endpoint POST /api/reservas aún no existe en el backend.' : err.message;
+      showError(txt);
+    }
+  });
+
+  // Ver reservas
+  $('verReservasBtn').onclick = async ()=>{
+    bkMsg.textContent = ''; bkOutput.classList.add('hidden');
+    try{
+      if(!state.token){ dlg.showModal(); showNote('Inicia sesión para ver tus reservas.'); return; }
+      const data = await httpJSON('/api/reservas', { headers:{ Authorization: 'Bearer '+state.token } });
+      showOk('Reservas encontradas:');
+      showJson(bkOutput, data);
+    }catch(err){
+      const txt = String(err.message).includes('Not Found')
+        ? 'El endpoint GET /api/reservas aún no existe en el backend.' : err.message;
+      showError(txt);
+    }
+  };
+</script>
+</body>
+</html>
